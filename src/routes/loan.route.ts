@@ -2,7 +2,7 @@ import { Router } from "express"
 import * as controller from "../controllers/loan.controller"
 import { validate } from "../middlewares/validation.middleware"
 import { createLoanSchema } from "../types/loan"
-import {authenticate} from "../middlewares/auth.middleware";
+import { authenticate } from "../middlewares/auth.middleware";
 import {adminOnly} from "../middlewares/admin.middleware";
 
 

@@ -7,8 +7,7 @@ info:
 servers:
   - url: http://localhost:3000
 
-# ================= SECURITY CONFIG =================
-# Menambahkan ini agar tombol "Authorize" (Gembok) muncul kembali
+
 security:
   - bearerAuth: []
 
@@ -45,7 +44,7 @@ paths:
     post:
       tags: [Auth]
       summary: Login to get user session and role
-      security: [] # Bebas akses tanpa token
+      security: [] 
       requestBody:
         required: true
         content:
@@ -79,16 +78,18 @@ paths:
           description: Logout successful
 
   /auth/me:
-    get:
-      tags: [Auth]
-      summary: Get profile information of the logged-in user
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserResponse'
+  get:
+    tags: [Auth]
+    summary: Get profile information of the logged-in user
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserResponse'
+      401:
+        description: Unauthorized
 
   /auth/users/{id}:
     delete:
@@ -591,7 +592,6 @@ paths:
 # ================= COMPONENTS =================
 
 components:
-  # Definisi Security Scheme agar Swagger bisa mengirim Header Authorization
   securitySchemes:
     bearerAuth:
       type: http

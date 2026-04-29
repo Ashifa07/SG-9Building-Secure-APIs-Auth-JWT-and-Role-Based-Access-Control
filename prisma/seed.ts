@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('--- Start Seeding Data ---');
 
-  // Hapus data lama (urut dari child ke parent)
   await prisma.loan.deleteMany();
   await prisma.profile.deleteMany();
   await prisma.book.deleteMany();

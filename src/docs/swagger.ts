@@ -4,10 +4,11 @@ import { Express } from "express"
 import path from "path"
 
 export const swaggerDocs = (app: Express) => {
-
   const swaggerDocument = YAML.load(
-    path.join(__dirname, "./swagger.yaml")
+    path.resolve(__dirname, "../docs/swagger.yaml") 
   )
 
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+    explorer: true, 
+  }))
 }

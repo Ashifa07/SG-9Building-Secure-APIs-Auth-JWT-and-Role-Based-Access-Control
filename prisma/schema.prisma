@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//one to many
+// One-to-many: Category → Book
 model Category {
   id    Int    @id @default(autoincrement())
   name  String @unique
@@ -22,28 +16,28 @@ model Category {
 
 model Publisher {
   id    Int    @id @default(autoincrement())
-  name  String
+  name  String @unique   
   books Book[]
 }
 
 model Book {
-  id    Int    @id @default(autoincrement())
-  title String
-  year  Int
+  id          Int        @id @default(autoincrement())
+  title       String
+  year        Int
 
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  category    Category   @relation(fields: [categoryId], references: [id])
 
   publisherId Int?
   publisher   Publisher? @relation(fields: [publisherId], references: [id])
 
-  authors Author[] @relation("BooksAuthors")
-  loans   Loan[]
+  authors     Author[]   @relation("BooksAuthors")
+  loans       Loan[]
 }
 
 model Author {
   id      Int      @id @default(autoincrement())
-  name    String
+  name    String   @unique   
   books   Book[]   @relation("BooksAuthors")
   profile Profile?
 }
@@ -51,8 +45,8 @@ model Author {
 model Profile {
   id       Int    @id @default(autoincrement())
   bio      String
-  author   Author @relation(fields: [authorId], references: [id])
   authorId Int    @unique
+  author   Author @relation(fields: [authorId], references: [id])
 }
 
 model Member {

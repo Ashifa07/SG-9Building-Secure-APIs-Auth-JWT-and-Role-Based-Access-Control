@@ -1,28 +1,31 @@
 import { prisma } from "../config/prisma"
 
-export const createPublisher=(data:any)=>{
-  return prisma.publisher.create({data})
+export const createPublisher = (data: any) => {
+  return prisma.publisher.create({ data })
 }
 
-export const getPublishers=()=>{
+export const getPublishers = () => {
   return prisma.publisher.findMany({
-    include:{books:true}
+    include: { books: true }
   })
 }
 
-export const getPublisher=(id:number)=>{
-  return prisma.publisher.findUnique({where:{id}})
+export const getPublisher = (id: number) => {
+  return prisma.publisher.findUnique({
+    where: { id },
+    include: { books: true }   
+  })
 }
 
-export const updatePublisher=(id:number,data:any)=>{
+export const updatePublisher = (id: number, data: any) => {
   return prisma.publisher.update({
-    where:{id},
+    where: { id },
     data
   })
 }
 
-export const deletePublisher=(id:number)=>{
+export const deletePublisher = (id: number) => {
   return prisma.publisher.delete({
-    where:{id}
+    where: { id }
   })
 }
